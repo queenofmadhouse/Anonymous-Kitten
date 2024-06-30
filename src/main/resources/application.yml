@@ -1,0 +1,28 @@
+spring:
+  main:
+    web-application-type: none
+  flyway:
+    locations: classpath:/db/migration
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${POSTGRES_DB_URL} # jdbc:postgresql://localhost:5433/kittenbot
+    username: ${POSTGRES_DB_USERNAME} # postgres
+    password: ${POSTGRES_DB_PASSWORD} # 1234
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+    date-format: yyyy-MM-dd'T'HH:mm:ss
+app:
+  constants:
+    bot:
+      bot-name: Anonymous Kitten Comments
+      bot-token: ${BOT_TOKEN} # 6812911238:AAF71cvmWLypawWNqU0uvcR-f-0YVfagZpA
+      channel-id: ${CHANNEL_ID} # -1002206960832
+      chat-group-id: ${CHAT_GROUP_ID} # -1002181849175
+      comments-list-chat-id: ${COMMENTS_LIST_CHAT_ID} # -1002219354567
+      link-to-message: ${LINK_TO_MESSAGE} # https://t.me/c/2103005742/
+      link-to-rules: ${LINK_TO_RULES} # https://telegra.ph/centre-t-rules-10-06
+      bot-link: ${BOT_LINK} # t.me/anonymous_kitten_bot
