@@ -14,7 +14,7 @@ It uses Java 8 and Spring Boot 2.7.11, as well as Flywaydb to automatically crea
 ### Basic settings:
 Create a bot in @BotFather
 You need to specify through environment variables:
-
+~~~
 1) POSTGRES_DB_URL - URL for connecting to the database (in the format: jdbc:postgresql://HOST:PORT/DB_NAME)
 2) POSTGRES_DB_USERNAME: Username for connecting to the database.
 3) POSTGRES_DB_PASSWORD: Password for connecting to the database.
@@ -23,9 +23,17 @@ You need to specify through environment variables:
 6) CHAT_GROUP_ID: ID of a chat group connected to the channel.
 7) COMMENTS_LIST_CHAT_ID: ID of a chat (group) created to view the list of comments and manage user bans.
 8) LINK_TO_MESSAGE: Link to a message in the chat from step 6.
-9) LINK_TO_RULES: Link to the page with community rules.
-10) BOT_LINK: Link to the bot.
-
+9) BOT_LINK: Link to the bot.
+~~~
+### Templates for copying
+#### Docker
+~~~bash
+-e "POSTGRES_DB_PASSWORD=" -e "POSTGRES_DB_URL=" -e "POSTGRES_DB_USERNAME=" -e "BOT_TOKEN=" -e "CHANNEL_ID=" -e "CHAT_GROUP_ID=" -e "COMMENTS_LIST_CHAT_ID=" -e "LINK_TO_MESSAGE=" -e "BOT_LINK="
+~~~
+#### IDEA:
+~~~
+BOT_LINK=;BOT_TOKEN=;CHANNEL_ID=;CHAT_GROUP_ID=;COMMENTS_LIST_CHAT_ID=;LINK_TO_MESSAGE=;POSTGRES_DB_PASSWORD=;POSTGRES_DB_URL=;POSTGRES_DB_USERNAME=
+~~~
 ### Changing the database:
 1) In the file pom.xml, remove the dependency responsible for working with PostgreSQL and replace it with the one you need
 2) In the file application.yml, change "driver-class-name" to the required one
@@ -41,7 +49,7 @@ You need to specify through environment variables:
 ### Основные настройки:
 Создать бота в @BotFather
 Необходимо указать через переменные среды:
-
+~~~
 1) POSTGRES_DB_URL: URL-адрес для подключения к базе данных (в формате: jdbc:postgresql://ХОСТ:ПОРТ/ИМЯ_БД)
 2) POSTGRES_DB_USERNAME: Имя пользователя для подключения к базе данных.
 3) POSTGRES_DB_PASSWORD: Пароль для подключения к базе данных.
@@ -52,7 +60,17 @@ You need to specify through environment variables:
 8) LINK_TO_MESSAGE: Ссылка на сообщение в чате из пункта 6.
 9) LINK_TO_RULES: Ссылка на страницу с правилами сообщества.
 10) BOT_LINK: Ссылка на бота.
-
+~~~
+### Шаблоны для копирования:
+#### Docker
+~~~bash
+-e "POSTGRES_DB_PASSWORD=" -e "POSTGRES_DB_URL=" -e "POSTGRES_DB_USERNAME=" -e "BOT_TOKEN=" -e "CHANNEL_ID=" -e "CHAT_GROUP_ID=" -e "COMMENTS_LIST_CHAT_ID=" -e "LINK_TO_MESSAGE=" -e "BOT_LINK="
+~~~
+#### IDEA:
+~~~
+BOT_LINK=;BOT_TOKEN=;CHANNEL_ID=;CHAT_GROUP_ID=;COMMENTS_LIST_CHAT_ID=;LINK_TO_MESSAGE=;POSTGRES_DB_PASSWORD=;POSTGRES_DB_URL=;POSTGRES_DB_USERNAME=
+~~~
+### 
 ### Смена базы данных:
 1) В файле pom.xml удалить зависимость отвечающую за работу с postgres на необходимую
 2) В файле application.yml изменить "driver-class-name" на необходимый
