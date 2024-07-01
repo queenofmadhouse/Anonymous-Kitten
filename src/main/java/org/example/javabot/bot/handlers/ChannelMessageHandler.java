@@ -20,8 +20,6 @@ public class ChannelMessageHandler {
     private String botLink;
     @Value("${app.constants.bot.link-to-message}")
     private String linkToMessage;
-    @Value("${app.constants.bot.link-to-rules}")
-    private String linkToRules;
     private final ChannelPostsService channelPostsService;
 
     public List<SendMessage> handleMessage(Update update) {
@@ -38,10 +36,7 @@ public class ChannelMessageHandler {
                 "\n" +
                 "4. Введите ник (просим вас вводить только одно имя которым вы будете пользоваться в анонимных комментариях, чтобы не случались технические накладки, запомните или запишите его). \n" +
                 "\n" +
-                "3. Оставьте свой комментарий и отправьте в бот. \n" +
-                "\n" +
-                "❗️Обратите внимание — мы одобряем только те анонимные комментарии, которые соответствуют нашим <a href=\"" + linkToRules + "\">правилам</a>" + ".";
-
+                "3. Оставьте свой комментарий и отправьте в бот.";
         SendMessage sendMessage = new SendMessage();
 
         sendMessage.setChatId(chatId);
