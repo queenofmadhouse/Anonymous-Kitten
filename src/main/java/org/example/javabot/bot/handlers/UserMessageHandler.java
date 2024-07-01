@@ -22,8 +22,6 @@ public class UserMessageHandler {
 
     @Value("${app.constants.bot.chat-group-id}")
     private Long chatGroupId;
-    @Value("${app.constants.bot.link-to-rules}")
-    private String linkToRules;
     private final ChannelPostsService channelPostsService;
     private final BlockedUsersService blockedUsersService;
     private final BlackListHandler blackListHandler;
@@ -96,9 +94,7 @@ public class UserMessageHandler {
                     "\n" +
                     "2. Введите ник (просим вас вводить только одно имя которым вы будете пользоваться в анонимных комментариях, чтобы не случались технические накладки, запомните или запишите его). \n" +
                     "\n" +
-                    "3. Оставьте свой комментарий и отправьте в бот. \n" +
-                    "\n" +
-                    "❗️Обратите внимание — мы одобряем только те анонимные комментарии, которые соответствуют нашим <a href=\"" + linkToRules + "\">правилам</a>" + ".";
+                    "3. Оставьте свой комментарий и отправьте в бот.";
 
             sendMessageList.add(SendMessage.builder()
                             .chatId(chatId)

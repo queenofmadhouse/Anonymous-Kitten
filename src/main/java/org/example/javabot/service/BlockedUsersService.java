@@ -1,11 +1,10 @@
 package org.example.javabot.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.javabot.entity.BlockedUsers;
 import org.example.javabot.repository.BlockedUsersRepository;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
