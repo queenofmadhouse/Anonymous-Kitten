@@ -1,6 +1,7 @@
 package org.example.javabot.bot.handlers;
 
 import lombok.RequiredArgsConstructor;
+import org.example.javabot.configuration.BotTexts;
 import org.example.javabot.exception.TelegramRuntimeException;
 import org.example.javabot.service.BlockedUsersService;
 import org.example.javabot.service.ChannelPostsService;
@@ -25,6 +26,7 @@ public class UserMessageHandler {
     private final ChannelPostsService channelPostsService;
     private final BlockedUsersService blockedUsersService;
     private final BlackListHandler blackListHandler;
+    private final BotTexts botTexts;
 
     private enum ChatState {
         AWAITING_POST_ID,
@@ -48,7 +50,7 @@ public class UserMessageHandler {
 
         if (blockedUsersService.existByUserId(chatId)) {
 
-            String messageText = "Вы нарушали правила сообщества, поэтому были заблокированы";
+            String messageText = botTexts.getMessageToBannedUser();
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
@@ -86,15 +88,7 @@ public class UserMessageHandler {
 
         if (!message.getChatId().equals(chatGroupId) && message.getText().equals("/start")) {
 
-            String text = "Добро пожаловать в бот, позволяющий отправлять анонимные комментарии." + "\n" +
-                    "\n" +
-                    "Чтобы отправить комментарий: \n" +
-                    "\n" +
-                    "1. Введите номер поста, указанный в комментарии от бота под постом. \n" +
-                    "\n" +
-                    "2. Введите ник (просим вас вводить только одно имя которым вы будете пользоваться в анонимных комментариях, чтобы не случались технические накладки, запомните или запишите его). \n" +
-                    "\n" +
-                    "3. Оставьте свой комментарий и отправьте в бот.";
+            String text = botTexts.getStartMessage();
 
             sendMessageList.add(SendMessage.builder()
                             .chatId(chatId)
@@ -103,7 +97,7 @@ public class UserMessageHandler {
         }
         if (!message.getChatId().equals(chatGroupId)) {
 
-            String text = "Введите ID поста:";
+            String text = botTexts.getAskPostId();
 
             chatStates.put(chatId, ChatState.AWAITING_POST_ID);
 
@@ -126,7 +120,7 @@ public class UserMessageHandler {
 
             if (channelPostsService.findByPostId(postId) != null) {
 
-                String text = "Введите имя:";
+                String text = botTexts.getAskName();
 
                 chatStates.put(chatId, ChatState.AWAITING_NAME);
                 awaitingComments.put(chatId, postId);
@@ -137,7 +131,7 @@ public class UserMessageHandler {
                         .build());
             } else {
 
-                String text = "Пост с указанным ID не существует";
+                String text = botTexts.getPostDoesntExist();
 
                 chatStates.put(chatId, ChatState.NORMAL);
 
@@ -148,7 +142,7 @@ public class UserMessageHandler {
             }
         } catch (NumberFormatException e) {
 
-            String text = "Введите корректный ID поста";
+            String text = botTexts.getAskForCorrectPostId();
 
             sendMessageList.add(SendMessage.builder()
                     .chatId(chatId)
@@ -161,7 +155,7 @@ public class UserMessageHandler {
 
     private List<SendMessage> handleNameInput(Long chatId, String name) {
 
-        String text = "Напишите ваш комментарий";
+        String text = botTexts.getAskForComment();
 
         chatStates.put(chatId, ChatState.AWAITING_COMMENT);
         awaitingNames.put(chatId, name);
@@ -182,8 +176,8 @@ public class UserMessageHandler {
 
         if (userName != null) {
 
-            String fullComment = "Имя: " + userName + "\nКомментарий: " + comment;
-            String textToUser = "Ваш комментарий сохранен, ожидайте его публикации!";
+            String fullComment = botTexts.getFullCommentName() + userName + "\n" + botTexts.getFullCommentComment() + comment;
+            String textToUser = botTexts.getWaitForPublication();
 
             sendMessageList.add(SendMessage.builder()
                     .chatId(chatId)
@@ -203,7 +197,7 @@ public class UserMessageHandler {
             awaitingNames.remove(chatId);
         } else {
 
-            String text = "Произошла ошибка при сохранении вашего комментария. Пожалуйста, начните сначала.";
+            String text = botTexts.getErrorInSending();
 
             sendMessageList.add(SendMessage.builder()
                     .chatId(chatId)

@@ -25,3 +25,4 @@ app:
       comments-list-chat-id: ${COMMENTS_LIST_CHAT_ID}
       link-to-message: ${LINK_TO_MESSAGE}
       bot-link: ${BOT_LINK}
+      language: ${BOT_LANGUAGE}
