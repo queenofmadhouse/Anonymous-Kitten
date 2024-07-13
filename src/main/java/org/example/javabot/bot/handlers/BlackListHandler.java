@@ -1,6 +1,7 @@
 package org.example.javabot.bot.handlers;
 
 import lombok.RequiredArgsConstructor;
+import org.example.javabot.configuration.BotTexts;
 import org.example.javabot.exception.TelegramRuntimeException;
 import org.example.javabot.service.BlockedUsersService;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ public class BlackListHandler {
     private final String BLOCK_USER_BUTTON = "block_user_id_";
     private final String UNBLOCK_USER_BUTTON = "unblock_user_id_";
     private final BlockedUsersService blockedUsersService;
+    private final BotTexts botTexts;
 
     public List<SendMessage> handleButtons(Update update) {
         String data = update.getCallbackQuery().getData();
@@ -37,7 +39,7 @@ public class BlackListHandler {
                 List<List<InlineKeyboardButton>> inlineKeyboardRows = new ArrayList<>();
                 List<InlineKeyboardButton> unbanUserRow = new ArrayList<>();
                 InlineKeyboardButton unbanUserBtn = new InlineKeyboardButton();
-                unbanUserBtn.setText("Разблокировать пользователя");
+                unbanUserBtn.setText(botTexts.getUnbanUser());
                 unbanUserBtn.setCallbackData(UNBLOCK_USER_BUTTON + chatId);
                 unbanUserRow.add(unbanUserBtn);
                 inlineKeyboardRows.add(unbanUserRow);
@@ -45,7 +47,7 @@ public class BlackListHandler {
 
                 SendMessage messageToList = new SendMessage();
                 messageToList.setChatId(commentsListChatId);
-                messageToList.setText("Данный пользователь уже заблокирован");
+                messageToList.setText(botTexts.getUserAlreadyBanned());
                 messageToList.setReplyToMessageId(update.getCallbackQuery().getMessage().getMessageId());
                 messageToList.setReplyMarkup(inlineKeyboardMarkup);
                 messageToList.enableMarkdown(true);
@@ -54,12 +56,12 @@ public class BlackListHandler {
             } else {
                 SendMessage messageToList = new SendMessage();
                 messageToList.setChatId(commentsListChatId);
-                messageToList.setText("Пользователь успешно заблокирован");
+                messageToList.setText(botTexts.getUserSuccessfullyBanned());
                 messageToList.setReplyToMessageId(update.getCallbackQuery().getMessage().getMessageId());
 
                 SendMessage messageToUser = new SendMessage();
                 messageToUser.setChatId(chatId);
-                messageToUser.setText("Вы были заблокированы в данном боте за нарушения правил сообщества");
+                messageToUser.setText(botTexts.getBanMessageForUser());
 
                 sendMessageList.add(messageToList);
                 sendMessageList.add(messageToUser);
@@ -78,12 +80,12 @@ public class BlackListHandler {
             if (blockedUsersService.existByUserId(chatId)) {
                 SendMessage messageToList = new SendMessage();
                 messageToList.setChatId(commentsListChatId);
-                messageToList.setText("Пользователь успешно разблокирован");
+                messageToList.setText(botTexts.getUserSuccessfullyUnbanned());
                 messageToList.setReplyToMessageId(update.getCallbackQuery().getMessage().getMessageId());
 
                 SendMessage messageToUser = new SendMessage();
                 messageToUser.setChatId(chatId);
-                messageToUser.setText("Вы были разблокированы в данном боте");
+                messageToUser.setText(botTexts.getUnbanMessageForUser());
 
                 sendMessageList.add(messageToList);
                 sendMessageList.add(messageToUser);
@@ -95,7 +97,7 @@ public class BlackListHandler {
                 List<List<InlineKeyboardButton>> inlineKeyboardRows = new ArrayList<>();
                 List<InlineKeyboardButton> banUserRow = new ArrayList<>();
                 InlineKeyboardButton banUserBtn = new InlineKeyboardButton();
-                banUserBtn.setText("Заблокировать пользователя");
+                banUserBtn.setText(botTexts.getBanUser());
                 banUserBtn.setCallbackData(BLOCK_USER_BUTTON + chatId);
                 banUserRow.add(banUserBtn);
                 inlineKeyboardRows.add(banUserRow);
@@ -103,7 +105,7 @@ public class BlackListHandler {
 
                 SendMessage messageToList = new SendMessage();
                 messageToList.setChatId(commentsListChatId);
-                messageToList.setText("Данный пользователь не заблокирован");
+                messageToList.setText(botTexts.getUserIsNotBanned());
                 messageToList.setReplyToMessageId(update.getCallbackQuery().getMessage().getMessageId());
                 messageToList.setReplyMarkup(inlineKeyboardMarkup);
                 messageToList.enableMarkdown(true);
@@ -124,7 +126,7 @@ public class BlackListHandler {
         List<List<InlineKeyboardButton>> inlineKeyboardRows = new ArrayList<>();
         List<InlineKeyboardButton> banUserRow = new ArrayList<>();
         InlineKeyboardButton banUserBtn = new InlineKeyboardButton();
-        banUserBtn.setText("Заблокировать пользователя");
+        banUserBtn.setText(botTexts.getBanUser());
         banUserBtn.setCallbackData(BLOCK_USER_BUTTON + chatId);
         banUserRow.add(banUserBtn);
         inlineKeyboardRows.add(banUserRow);
@@ -133,7 +135,7 @@ public class BlackListHandler {
         sendMessage.enableMarkdown(true);
         sendMessage.setReplyMarkup(inlineKeyboardMarkup);
         sendMessage.setChatId(commentsListChatId);
-        sendMessage.setText("*Новый комментарий*" + "\n\n" +
+        sendMessage.setText(botTexts.getNewComment() + "\n\n" +
                 text);
 
         return sendMessage;
