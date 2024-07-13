@@ -25,9 +25,35 @@ You need to specify through environment variables:
 7) COMMENTS_LIST_CHAT_ID: ID of a chat (group) created to view the list of comments and manage user bans.
 8) LINK_TO_MESSAGE: Link to a message in the chat from step 6.
 9) BOT_LINK: Link to the bot.
-10) BOT_LANGUAGE: Indicates the language in which the bot will work (en, uk, ru)
+11) BOT_LANGUAGE: Indicates the language in which the bot will work (en, uk, ru)
 ~~~
+### Templates for copying
+#### Docker
+~~~bash
+-e "POSTGRES_DB_PASSWORD=" -e "POSTGRES_DB_URL=" -e "POSTGRES_DB_USERNAME=" -e "BOT_TOKEN=" -e "CHANNEL_ID=" -e "CHAT_GROUP_ID=" -e "COMMENTS_LIST_CHAT_ID=" -e "LINK_TO_MESSAGE=" -e "BOT_LINK="
+~~~
+#### IDEA:
+~~~
+BOT_LINK=;BOT_TOKEN=;CHANNEL_ID=;CHAT_GROUP_ID=;COMMENTS_LIST_CHAT_ID=;LINK_TO_MESSAGE=;POSTGRES_DB_PASSWORD=;POSTGRES_DB_URL=;POSTGRES_DB_USERNAME=
+~~~
+### Changing the database:
+1) In the file pom.xml, remove the dependency responsible for working with PostgreSQL and replace it with the one you need
+2) In the file application.yml, change "driver-class-name" to the required one
 
+## Опис українською
+
+Цей бот призначений для надсилання анонімних коментарів у телеграм-каналах. Основною метою його створення було надання людям можливості залишати анонімні коментарі.
+
+Зверніть увагу, що ця версія бота не має модерації коментарів перед їх відправкою, тому не надає захисту від спам-атак при використанні цієї версії бота.
+
+Також остання версія бота надає можливість блокувати користувачів, які залишили коментарі (всі нові коментарі публікуються в окремому чаті, є можливість заблокувати/розблокувати користувача, який залишив конкретний коментар, але немає можливості дізнатися юзернейм тощо).
+
+Використовується Java 21 та Spring Boot 3.3.0, а також Flywaydb для автоматичного створення необхідної для роботи схеми та таблиць.
+
+## Налаштування
+### Основні налаштування:
+Створити бота в @BotFather
+Необхідно вказати через змінні середовища:
 ~~~
 1) POSTGRES_DB_URL: URL-адреса для підключення до бази даних (у форматі: jdbc:postgresql://ХОСТ:ПОРТ/ІМ'Я_БД)
 2) POSTGRES_DB_USERNAME: Ім'я користувача для підключення до бази даних.
