@@ -25,7 +25,7 @@ You need to specify through environment variables:
 7) COMMENTS_LIST_CHAT_ID: ID of a chat (group) created to view the list of comments and manage user bans.
 8) LINK_TO_MESSAGE: Link to a message in the chat from step 6.
 9) BOT_LINK: Link to the bot.
-11) BOT_LANGUAGE: Indicates the language in which the bot will work (en, uk, ru)
+10) BOT_LANGUAGE: Indicates the language in which the bot will work (en, uk, ru)
 ~~~
 ### Templates for copying
 #### Docker
