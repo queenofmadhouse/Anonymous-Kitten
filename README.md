@@ -1,5 +1,6 @@
 # Anonymous Kitten Bot 😺
 - [English Description](#english-description)
+- [Опис українською](#описание-на-русском)
 - [Описание на русском](#описание-на-русском)
   
 ## English description
@@ -8,7 +9,7 @@ Please note that this version of the bot does not have comment moderation before
 The latest version of the bot also allows you to block users who leave comments. All new comments are published in a separate chat, where you can block or unblock the user who left a specific comment.
 However, there is no way to find out the username or other details of the user.
 
-It uses Java 8 and Spring Boot 2.7.11, as well as Flywaydb to automatically create the necessary schema and tables. The Dockerfile is pre-configured for correct operation, however, it is necessary to specify environment variables (described below). Additionally, you need to set up constants in the application.yml (also described below).
+It uses Java 21 and Spring Boot 3.3.0, as well as Flywaydb to automatically create the necessary schema and tables. The Dockerfile is pre-configured for correct operation, however, it is necessary to specify environment variables (described below). Additionally, you need to set up constants in the application.yml (also described below).
 
 ## Setup
 ### Basic settings:
@@ -24,26 +25,41 @@ You need to specify through environment variables:
 7) COMMENTS_LIST_CHAT_ID: ID of a chat (group) created to view the list of comments and manage user bans.
 8) LINK_TO_MESSAGE: Link to a message in the chat from step 6.
 9) BOT_LINK: Link to the bot.
+10) BOT_LANGUAGE: Indicates the language in which the bot will work (en, uk, ru)
 ~~~
-### Templates for copying
+
+~~~
+1) POSTGRES_DB_URL: URL-адреса для підключення до бази даних (у форматі: jdbc:postgresql://ХОСТ:ПОРТ/ІМ'Я_БД)
+2) POSTGRES_DB_USERNAME: Ім'я користувача для підключення до бази даних.
+3) POSTGRES_DB_PASSWORD: Пароль для підключення до бази даних.
+4) BOT_TOKEN: Токен бота, отриманий від @BotFather.
+5) CHANNEL_ID: Ідентифікатор Telegram-каналу.
+6) CHAT_GROUP_ID: Ідентифікатор групового чату, пов'язаного з каналом.
+7) COMMENTS_LIST_CHAT_ID: Ідентифікатор чату (групи), створеного для перегляду списку коментарів та управління банами користувачів.
+8) LINK_TO_MESSAGE: Посилання на повідомлення в чаті з пункту 6.
+9) BOT_LINK: Посилання на бота.
+10) BOT_LANGUAGE: Вказує мову якою буде працювати бот (en, uk, ru)
+~~~
+### Шаблони для копіювання:
 #### Docker
 ~~~bash
--e "POSTGRES_DB_PASSWORD=" -e "POSTGRES_DB_URL=" -e "POSTGRES_DB_USERNAME=" -e "BOT_TOKEN=" -e "CHANNEL_ID=" -e "CHAT_GROUP_ID=" -e "COMMENTS_LIST_CHAT_ID=" -e "LINK_TO_MESSAGE=" -e "BOT_LINK="
+-e "POSTGRES_DB_PASSWORD=" -e "POSTGRES_DB_URL=" -e "POSTGRES_DB_USERNAME=" -e "BOT_TOKEN=" -e "CHANNEL_ID=" -e "CHAT_GROUP_ID=" -e "COMMENTS_LIST_CHAT_ID=" -e "LINK_TO_MESSAGE=" -e "BOT_LINK=" -e "BOT_LANGUAGE="
 ~~~
 #### IDEA:
 ~~~
-BOT_LINK=;BOT_TOKEN=;CHANNEL_ID=;CHAT_GROUP_ID=;COMMENTS_LIST_CHAT_ID=;LINK_TO_MESSAGE=;POSTGRES_DB_PASSWORD=;POSTGRES_DB_URL=;POSTGRES_DB_USERNAME=
+BOT_LINK=;BOT_TOKEN=;CHANNEL_ID=;CHAT_GROUP_ID=;COMMENTS_LIST_CHAT_ID=;LINK_TO_MESSAGE=;POSTGRES_DB_PASSWORD=;POSTGRES_DB_URL=;POSTGRES_DB_USERNAME=;BOT_LANGUAGE=
 ~~~
-### Changing the database:
-1) In the file pom.xml, remove the dependency responsible for working with PostgreSQL and replace it with the one you need
-2) In the file application.yml, change "driver-class-name" to the required one
+### 
+### Зміна типу бази даних:
+1) У файлі pom.xml видалити залежність, що відповідає за роботу з postgres, на необхідну. 
+2) У файлі application.yml змінити "driver-class-name" на необхідний.
 
 ## Описание на русском
-Данный бот преднозначен для отправки анонимных комментариев в телеграмм-каналах. Основная цель его создания была в предоставлении людям возможности оставлять анонимные комментарии.
+Данный бот предназначен для отправки анонимных комментариев в телеграмм-каналах. Основная цель его создания была в предоставлении людям возможности оставлять анонимные комментарии.
 Примите во внимание, что данная версия бота не имеет модерации комментариев перед их отправкой, поэтому не предоставляет защиты от спам-атак при использовании этой версии бота. 
 Так же последняя версия бота предоставляет возможность блокировать пользователей оставивших комментарии (все новые комментарии публикуются в отдельном чате, 
 есть возможность заблокировать/разблокировать пользователя оставившего конкретный комментарий, но нет возможности узнать юзернейм и тд.
-Ипользуется Java 8 и Spring Boot 2.7.11, а так же Flywaydb для автоматического создания необходимой для работы схемы и таблиц
+Используется Java 21 и Spring Boot 3.3.0, а так же Flywaydb для автоматического создания необходимой для работы схемы и таблиц
 
 ## Настройка
 ### Основные настройки:
@@ -58,8 +74,8 @@ BOT_LINK=;BOT_TOKEN=;CHANNEL_ID=;CHAT_GROUP_ID=;COMMENTS_LIST_CHAT_ID=;LINK_TO_M
 6) CHAT_GROUP_ID: Идентификатор группового чата, связанного с каналом.
 7) COMMENTS_LIST_CHAT_ID: Идентификатор чата (группы), созданного для просмотра списка комментариев и управления банами пользователей.
 8) LINK_TO_MESSAGE: Ссылка на сообщение в чате из пункта 6.
-9) LINK_TO_RULES: Ссылка на страницу с правилами сообщества.
-10) BOT_LINK: Ссылка на бота.
+9) BOT_LINK: Ссылка на бота.
+10) BOT_LANGUAGE: Указывает язык на котором будет работать бот (en, uk, ru)
 ~~~
 ### Шаблоны для копирования:
 #### Docker
@@ -71,6 +87,6 @@ BOT_LINK=;BOT_TOKEN=;CHANNEL_ID=;CHAT_GROUP_ID=;COMMENTS_LIST_CHAT_ID=;LINK_TO_M
 BOT_LINK=;BOT_TOKEN=;CHANNEL_ID=;CHAT_GROUP_ID=;COMMENTS_LIST_CHAT_ID=;LINK_TO_MESSAGE=;POSTGRES_DB_PASSWORD=;POSTGRES_DB_URL=;POSTGRES_DB_USERNAME=
 ~~~
 ### 
-### Смена базы данных:
+### Смена типа базы данных:
 1) В файле pom.xml удалить зависимость отвечающую за работу с postgres на необходимую
 2) В файле application.yml изменить "driver-class-name" на необходимый
